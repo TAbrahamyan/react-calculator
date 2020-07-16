@@ -4,20 +4,51 @@ import { Button, Input } from 'antd';
 import '../scss/components/_calculator.scss';
 
 export const Calculator:React.FunctionComponent = () => {
-  const addNumberHandler = (): void => {}
+  const [ history, setHistory ] = React.useState<string>('');
+  const [ output, setOutput ] = React.useState<string>('0');
 
-  const operationHandler = (): void => {}
+  const addNumberHandler = ({ target: { textContent: t } }: any): void => {
+    if (output.startsWith('0')) {
+      setOutput(t);
+      return;
+    }
+
+    setOutput(output + t);
+  }
+
+  const operationHandler = ({ target: { textContent: t }}: any): void => {
+    if (t === '=') {
+      setOutput(eval(history + output));
+      setHistory('');
+      return;
+    }
+
+    setHistory(output + t);
+    setOutput('');
+  }
+
+  const clearAll = (): void => setOutput('0');
+
+  const removeLast = (): void => {
+    if (output === '0') {
+      return;
+    }
+
+    setOutput(output.length === 1 ? output.replace(output.slice(0, 1), '0') : output.slice(0, -1));
+  }
+
+  const reverse = (): void => setOutput(String(-output));
 
   return (
     <div className="calculator">
       <div className="calculator__result">
-        <Input disabled />
-        <Input disabled />
+        <Input value={history} disabled />
+        <Input style={{ color: 'black', fontSize: '1.8em' }} value={output} disabled />
       </div>
       <div className="calculator__buttons">
-        <Button type="primary">C</Button>
-        <Button type="primary">CE</Button>
-        <Button type="primary">-/+</Button>
+        <Button type="primary" onClick={clearAll}>C</Button>
+        <Button type="primary" onClick={removeLast}>CE</Button>
+        <Button type="primary" onClick={reverse}>-/+</Button>
 
         <Button type="primary" onClick={addNumberHandler}>7</Button>
         <Button type="primary" onClick={addNumberHandler}>8</Button>
@@ -31,6 +62,7 @@ export const Calculator:React.FunctionComponent = () => {
         <Button type="primary" onClick={addNumberHandler}>2</Button>
         <Button type="primary" onClick={addNumberHandler}>3</Button>
         <Button type="primary" onClick={addNumberHandler}>0</Button>
+        <Button type="primary">.</Button>
 
         <Button type="primary" onClick={operationHandler}>/</Button>
         <Button type="primary" onClick={operationHandler}>*</Button>
