@@ -1,0 +1,32 @@
+@import '../variables';
+
+.calculator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+
+  &__result {
+    margin: $defaultMarginIndent;
+
+    input {
+      padding: $defaultPaddingIndent;
+      border: none;
+      cursor: allowed;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    button {
+      flex: 0 0 30%;
+      background: #092532;
+    }
+  }
+}

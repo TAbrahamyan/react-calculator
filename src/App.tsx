@@ -1,18 +1,13 @@
 import React from 'react';
 
-import { Button } from 'antd';
-import './scss/components/App.scss';
+import { Calculator } from './components/Calculator';
 
-const App:React.FunctionComponent = () => {
-  const [ counter, setCounter ] = React.useState<number>(0);
+import './scss/components/_app.scss';
 
+export const App:React.FunctionComponent = () => {
   return (
     <div className="app">
-      <Button type="primary" onClick={() => setCounter(counter + 1)}>+1</Button>
-      <Button type="primary" onClick={() => setCounter(counter - 1)} danger>-1</Button>
-      <h1>{ counter }</h1>
+      <Calculator />
     </div>
   );
 }
-
-export default App;
