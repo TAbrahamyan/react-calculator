@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Button } from 'antd';
 
+const MAIN_OPERATIONS = ['C', 'CE', '-/+'];
+const BUTTON_NUMBERS = '1 2 3 4 5 6 7 8 9 0'.split(' ');
+const BUTTON_OPERATIONS = '/ * + - ='.split(' ');
+
 interface IProps {
   output: string,
   setOutput: Function,
@@ -42,7 +46,7 @@ export const Buttons: React.FunctionComponent<IProps> = ({
       && t !== '='
       && !output.endsWith('.')
     ) {
-      setHistory((eval(history + output)) + t);
+      setHistory((String(eval(history + output)) + t));
       setOutput('');
       return;
     } else if (
@@ -51,7 +55,7 @@ export const Buttons: React.FunctionComponent<IProps> = ({
       && t === '='
       && !output.endsWith('.')
     ) {
-      setOutput(eval(history + output));
+      setOutput(String(eval(history + output)));
       setHistory('');
       return;
     } else {
@@ -86,14 +90,10 @@ export const Buttons: React.FunctionComponent<IProps> = ({
     }
   }, [ outsiderEvents ]);
 
-  const otherButtons = 'C CE -/+'.split(' ');
-  const buttonNumbers = '1 2 3 4 5 6 7 8 9 0 .'.split(' ');
-  const buttonOperators = '/ * + - ='.split(' ');
-
   return (
     <div className="calculator__buttons">
       {
-        otherButtons?.map((button: any, index: number) =>
+        MAIN_OPERATIONS?.map((button: any, index: number) =>
           <Button
             key={index}
             type="primary"
@@ -103,7 +103,7 @@ export const Buttons: React.FunctionComponent<IProps> = ({
       }
 
       {
-        buttonNumbers?.map((button: any, index: number) =>
+        BUTTON_NUMBERS?.map((button: any, index: number) =>
           <Button
             key={index}
             type="primary"
@@ -113,8 +113,10 @@ export const Buttons: React.FunctionComponent<IProps> = ({
           </Button>)
       }
 
+      <Button type="primary">.</Button>
+
       {
-        buttonOperators?.map((button: any, index: number) =>
+        BUTTON_OPERATIONS?.map((button: any, index: number) =>
           <Button
             key={index}
             type="primary"
