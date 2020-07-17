@@ -2,9 +2,8 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const MAIN_OPERATIONS = ['C', 'CE', '-/+'];
-const BUTTON_NUMBERS = '1 2 3 4 5 6 7 8 9 0'.split(' ');
-const BUTTON_OPERATIONS = '/ * + - ='.split(' ');
+const BUTTON_NUMBERS = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ];
+const BUTTON_OPERATIONS = ['/', '*', '+', '-', '='];
 
 interface IProps {
   output: string,
@@ -33,95 +32,54 @@ export const Buttons: React.FunctionComponent<IProps> = ({
       return;
     } else if (
       output
-      && !history
-      && t !== '='
-      && !output.endsWith('.')
-    ) {
-      setHistory(output + t);
-      setOutput('');
-      return;
-    } else if (
-      history
-      && output
-      && t !== '='
-      && !output.endsWith('.')
-    ) {
-      setHistory((String(eval(history + output)) + t));
-      setOutput('');
-      return;
-    } else if (
-      history
-      && output
+      && history
       && t === '='
       && !output.endsWith('.')
     ) {
       setOutput(String(eval(history + output)));
       setHistory('');
       return;
-    } else {
+    } else if (output && !output.endsWith('.')) {
+      setHistory(history + output + t);
+      setOutput('');
       return;
     }
   }
 
-  const outsiderEvents = React.useCallback(({ target: { textContent: t } }: any): void => {
-    if (t === 'C') {
-      setOutput('');
-      setHistory('');
-      return;
-    } else if (t === 'CE') {
-      setOutput(output.slice(0, -1));
-      return;
-    } else if (t === '-/+' && !output.endsWith('.')) {
-      setOutput(String(-output));
-      return;
-    } else if (t === '.' && output && !output.includes('.')) {
+  const clearAllHandler = (): void => {
+    setOutput('');
+    setHistory('');
+  }
+
+  const removeLastHandler = (): void => setOutput(output.slice(0, -1));
+
+  const reverseHandler = (): void => output.endsWith('.') ? false : setOutput(String(-output));
+
+  const addDecimalHandler = (): void => {
+    if (output && !output.includes('.')) {
       setOutput(output + '.');
       return;
-    } else {
-      return;
     }
-  }, [ setOutput, output, setHistory ]);
-
-  React.useEffect(() => {
-    document.addEventListener('click', outsiderEvents);
-
-    return () => {
-      document.removeEventListener('click', outsiderEvents);
-    }
-  }, [ outsiderEvents ]);
+  }
 
   return (
     <div className="calculator__buttons">
+      <Button type="primary" onClick={clearAllHandler}>C</Button>
+      <Button type="primary" onClick={removeLastHandler}>CE</Button>
+      <Button type="primary" onClick={reverseHandler}>-/+</Button>
+
       {
-        MAIN_OPERATIONS?.map((button: any, index: number) =>
-          <Button
-            key={index}
-            type="primary"
-          >
+        BUTTON_NUMBERS?.map((button: string, i: number) =>
+          <Button key={i} type="primary" onClick={addNumberHandler}>
             { button }
           </Button>)
       }
 
-      {
-        BUTTON_NUMBERS?.map((button: any, index: number) =>
-          <Button
-            key={index}
-            type="primary"
-            onClick={addNumberHandler}
-          >
-            { button }
-          </Button>)
-      }
-
-      <Button type="primary">.</Button>
+      <Button type="primary" onClick={addDecimalHandler}>.</Button>
 
       {
-        BUTTON_OPERATIONS?.map((button: any, index: number) =>
-          <Button
-            key={index}
-            type="primary"
-            onClick={operationHandler}
-          >
+        BUTTON_OPERATIONS?.map((button: string, i: number) =>
+          <Button key={i} type="primary" onClick={operationHandler}>
             { button }
           </Button>)
       }

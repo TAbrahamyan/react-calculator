@@ -8,6 +8,7 @@
   border-radius: 26px;
   background: #fff;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
 
   &__result {
     margin: $defaultMarginIndent;
@@ -24,9 +25,15 @@
     justify-content: center;
     flex-wrap: wrap;
 
+    span {
+      font-size: $defaultTextSize;
+    }
+
     button {
-      flex: 0 0 30%;
+      width: 30%;
       background: #333333;
+      padding: 0;
+      margin: $defaultMarginIndent;
     }
   }
 }
