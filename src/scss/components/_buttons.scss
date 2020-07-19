@@ -1,0 +1,45 @@
+@import '../variables';
+@import '../mixins';
+
+.calculator__buttons {
+  display: flex;
+
+  &__main {
+    @include flex-column;
+    background: $mainAndHeaderBackground;
+    padding: $defaultPadding;
+
+    div {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    button {
+      @include buttons-height-margin;
+      background: #19183A;
+      width: 26%;
+    }
+  }
+
+  &__operators {
+    @include flex-column;
+    background: #25254A;
+    padding: $defaultPadding;
+
+    button {
+      @include buttons-height-margin;
+      background: $orangeColor;
+      padding: 32px;
+    }
+  }
+
+  span {
+    @include text-font;
+  }
+
+  button {
+    @include flex-content;
+    @include text-font;
+    border: $borderNone;
+  }
+}

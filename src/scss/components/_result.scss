@@ -1,0 +1,17 @@
+@import '../variables';
+
+.calculator__result {
+  input {
+    font-weight: $fontWeight;
+    font-size: 2.5em;
+    padding: 0.5rem;
+    text-align: right;
+    background: #05061B !important;
+    border: $borderNone;
+    color: $whiteColor;
+  }
+
+  .history {
+    color: $orangeColor;
+  }
+}

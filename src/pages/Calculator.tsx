@@ -6,7 +6,7 @@ import { Buttons } from '../components/Buttons';
 import { Typography } from 'antd';
 import '../scss/components/_calculator.scss';
 
-export const Calculator: React.FunctionComponent = () => {
+export const Calculator: React.FC = () => {
   const [ history, setHistory ] = React.useState<string>('');
   const [ output, setOutput ] = React.useState<string>('');
 

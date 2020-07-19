@@ -1,5 +1,4 @@
 @import '../variables';
-@import '../mixins';
 
 .calculator {
   max-width: 500px;
@@ -16,65 +15,6 @@
       .calcu {
         color: $orangeColor;
       }
-    }
-  }
-
-  &__result {
-    input {
-      font-weight: $fontWeight;
-      font-size: 2.5em;
-      padding: 0.5rem;
-      text-align: right;
-      background: #05061B !important;
-      border: $borderNone;
-      color: $whiteColor;
-    }
-
-    .history {
-      color: $orangeColor;
-    }
-  }
-
-  &__buttons {
-    display: flex;
-
-    &__main {
-      @include flex-column;
-      background: $mainAndHeaderBackground;
-      padding: $defaultPadding;
-
-      div {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      button {
-        @include buttons-height-margin;
-        background: #19183A;
-        width: 26%;
-      }
-    }
-
-    &__operators {
-      @include flex-column;
-      background: #25254A;
-      padding: $defaultPadding;
-
-      button {
-        @include buttons-height-margin;
-        background: $orangeColor;
-        padding: 32px;
-      }
-    }
-
-    span {
-      @include text-font;
-    }
-
-    button {
-      border: $borderNone;
-      @include flex-content;
-      @include text-font;
     }
   }
 }

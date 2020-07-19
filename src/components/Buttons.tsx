@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { Button } from 'antd';
+import '../scss/components/_buttons.scss';
 
-const BUTTON_NUMBERS = [
+const BUTTON_NUMBERS: string[] = [
   '7', '8', '9',
   '4', '5', '6',
   '1', '2', '3',
   '0'
 ];
-const BUTTON_OPERATIONS = [ '/', '*', '-', '+', '=' ];
+const BUTTON_OPERATIONS: string[] = [ '/', '*', '-', '+', '=' ];
 
 interface IProps {
   output: string,
@@ -17,7 +18,7 @@ interface IProps {
   setHistory: Function,
 }
 
-export const Buttons: React.FunctionComponent<IProps> = ({
+export const Buttons: React.FC<IProps> = ({
   output,
   setOutput,
   history,
@@ -38,30 +39,28 @@ export const Buttons: React.FunctionComponent<IProps> = ({
     } else if (output && history && t === '=' && !output.endsWith('.')) {
       setOutput(String(eval(history + output)));
       setHistory('');
-      return;
     } else if (output && !output.endsWith('.')) {
       setHistory(history + ' ' + output + ' ' + t);
       setOutput('');
-      return;
     }
   }
-
-  const clearOutputHandler = (): void => setOutput('');
 
   const clearAllHandler = (): void => {
     setOutput('');
     setHistory('');
   }
 
-  const removeLastHandler = (): void => setOutput(output.slice(0, -1));
-
-  const reverseHandler = (): void => output.endsWith('.') ? false : setOutput(String(-output));
-
   const addDecimalHandler = (): void => {
     if (output && !output.includes('.')) {
       setOutput(output + '.');
     }
   }
+
+  const clearOutputHandler = (): void => setOutput('');
+
+  const removeLastHandler = (): void => setOutput(output.slice(0, -1));
+
+  const reverseHandler = (): void => output.endsWith('.') ? false : setOutput(String(-output));
 
   return (
     <div className="calculator__buttons">
@@ -75,9 +74,10 @@ export const Buttons: React.FunctionComponent<IProps> = ({
         <div>
           {
             BUTTON_NUMBERS?.map((button: string, i: number) =>
-              <Button shape="circle" key={i} type="primary" onClick={addNumberHandler}>
-                { button }
-              </Button>)
+              <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
+                { button ?? '' }
+              </Button>
+            )
           }
 
           <Button shape="circle" type="primary" onClick={addDecimalHandler}>.</Button>
@@ -89,8 +89,9 @@ export const Buttons: React.FunctionComponent<IProps> = ({
         {
           BUTTON_OPERATIONS?.map((button: string, i: number) =>
             <Button key={i} shape="circle" type="primary" onClick={operationHandler}>
-              { button }
-            </Button>)
+              { button ?? '' }
+            </Button>
+          )
         }
       </div>
     </div>
