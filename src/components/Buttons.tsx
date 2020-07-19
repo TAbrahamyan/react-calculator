@@ -2,8 +2,13 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const BUTTON_NUMBERS = [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ];
-const BUTTON_OPERATIONS = ['/', '*', '+', '-', '='];
+const BUTTON_NUMBERS = [
+  '7', '8', '9',
+  '4', '5', '6',
+  '1', '2', '3',
+  '0'
+];
+const BUTTON_OPERATIONS = [ '/', '*', '-', '+', '=' ];
 
 interface IProps {
   output: string,
@@ -30,21 +35,18 @@ export const Buttons: React.FunctionComponent<IProps> = ({
   const operationHandler = ({ target: { textContent: t } }: any): void => {
     if (!history && t === '=') {
       return;
-    } else if (
-      output
-      && history
-      && t === '='
-      && !output.endsWith('.')
-    ) {
+    } else if (output && history && t === '=' && !output.endsWith('.')) {
       setOutput(String(eval(history + output)));
       setHistory('');
       return;
     } else if (output && !output.endsWith('.')) {
-      setHistory(history + output + t);
+      setHistory(history + ' ' + output + ' ' + t);
       setOutput('');
       return;
     }
   }
+
+  const clearOutputHandler = (): void => setOutput('');
 
   const clearAllHandler = (): void => {
     setOutput('');
@@ -58,31 +60,39 @@ export const Buttons: React.FunctionComponent<IProps> = ({
   const addDecimalHandler = (): void => {
     if (output && !output.includes('.')) {
       setOutput(output + '.');
-      return;
     }
   }
 
   return (
     <div className="calculator__buttons">
-      <Button type="primary" onClick={clearAllHandler}>C</Button>
-      <Button type="primary" onClick={removeLastHandler}>CE</Button>
-      <Button type="primary" onClick={reverseHandler}>-/+</Button>
+      <div className="calculator__buttons__main">
+        <div>
+          <Button shape="circle" type="primary" onClick={clearOutputHandler}>CE</Button>
+          <Button shape="circle" type="primary" onClick={clearAllHandler}>C</Button>
+          <Button shape="circle" type="primary" onClick={removeLastHandler}>←</Button>
+        </div>
 
-      {
-        BUTTON_NUMBERS?.map((button: string, i: number) =>
-          <Button key={i} type="primary" onClick={addNumberHandler}>
-            { button }
-          </Button>)
-      }
+        <div>
+          {
+            BUTTON_NUMBERS?.map((button: string, i: number) =>
+              <Button shape="circle" key={i} type="primary" onClick={addNumberHandler}>
+                { button }
+              </Button>)
+          }
 
-      <Button type="primary" onClick={addDecimalHandler}>.</Button>
+          <Button shape="circle" type="primary" onClick={addDecimalHandler}>.</Button>
+          <Button shape="circle" type="primary" onClick={reverseHandler}>-/+</Button>
+        </div>
+      </div>
 
-      {
-        BUTTON_OPERATIONS?.map((button: string, i: number) =>
-          <Button key={i} type="primary" onClick={operationHandler}>
-            { button }
-          </Button>)
-      }
+      <div className="calculator__buttons__operators">
+        {
+          BUTTON_OPERATIONS?.map((button: string, i: number) =>
+            <Button key={i} shape="circle" type="primary" onClick={operationHandler}>
+              { button }
+            </Button>)
+        }
+      </div>
     </div>
   );
 }

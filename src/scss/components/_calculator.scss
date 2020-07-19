@@ -1,39 +1,80 @@
 @import '../variables';
+@import '../mixins';
 
 .calculator {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 26px;
-  background: #fff;
-  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  max-width: 500px;
+  box-shadow: 5px 5px 20px 5px black;
+
+  &__header {
+    background-color: $mainAndHeaderBackground;
+
+    h1 {
+      text-align: center;
+      color: $whiteColor;
+      padding: $defaultPadding;
+
+      .calcu {
+        color: $orangeColor;
+      }
+    }
+  }
 
   &__result {
-    margin: $defaultMarginIndent;
-
     input {
-      padding: $defaultPaddingIndent;
-      border: none;
-      font-size: $defaultTextSize;
+      font-weight: $fontWeight;
+      font-size: 2.5em;
+      padding: 0.5rem;
+      text-align: right;
+      background: #05061B !important;
+      border: $borderNone;
+      color: $whiteColor;
+    }
+
+    .history {
+      color: $orangeColor;
     }
   }
 
   &__buttons {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+
+    &__main {
+      @include flex-column;
+      background: $mainAndHeaderBackground;
+      padding: $defaultPadding;
+
+      div {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      button {
+        @include buttons-height-margin;
+        background: #19183A;
+        width: 26%;
+      }
+    }
+
+    &__operators {
+      @include flex-column;
+      background: #25254A;
+      padding: $defaultPadding;
+
+      button {
+        @include buttons-height-margin;
+        background: $orangeColor;
+        padding: 32px;
+      }
+    }
 
     span {
-      font-size: $defaultTextSize;
+      @include text-font;
     }
 
     button {
-      width: 30%;
-      background: #333333;
-      padding: 0;
-      margin: $defaultMarginIndent;
+      border: $borderNone;
+      @include flex-content;
+      @include text-font;
     }
   }
 }

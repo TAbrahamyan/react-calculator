@@ -1,0 +1,22 @@
+@import './variables';
+
+@mixin flex-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin text-font {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+}
+
+@mixin buttons-height-margin {
+  height: $buttonHeight;
+  margin: $defaultMargin;
+}

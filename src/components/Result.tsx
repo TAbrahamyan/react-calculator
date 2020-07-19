@@ -10,8 +10,8 @@ interface IProps {
 export const Result: React.FunctionComponent<IProps> = ({ history, output }) => {
   return (
     <div className="calculator__result">
-      <Input value={history} disabled />
-      <Input value={output} disabled style={{ color: 'black', fontSize: '1.8em' }} />
+      <Input value={history} disabled className="history" />
+      <Input value={output} disabled />
     </div>
   );
 }
