@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IButtonsProps } from '../interfaces';
+import { Context, defaultContext } from '../Context';
 
 import { Button } from 'antd';
 import '../scss/components/_buttons.scss';
@@ -9,53 +9,47 @@ const BUTTON_NUMBERS: string[] = [
   '7', '8', '9',
   '4', '5', '6',
   '1', '2', '3',
-  '0'
+  '0',
 ];
 const BUTTON_OPERATIONS: string[] = [ '/', '*', '-', '+', '=' ];
 
-export const Buttons: React.FC<IButtonsProps> = ({
-  output,
-  setOutput,
-  history,
-  setHistory,
-}) => {
-  const addNumberHandler = ({ target: { textContent: t } }: any): void => {
-    if (output.startsWith('0') && output.slice(1, 2) !== '.') {
-      setOutput(t);
+export const Buttons: React.FC = () => {
+  const { calculator, setCalculator } = React.useContext(Context);
+
+  const addNumberHandler: any = ({ target: { textContent: t } }: any): void => {
+    if (calculator.output.startsWith('0') && calculator.output.slice(1, 2) !== '.') {
+      setCalculator({ ...calculator, output: t });
       return;
     }
 
-    setOutput(output + t);
+    setCalculator({ ...calculator, output: calculator.output + t });
   };
 
-  const operationHandler = ({ target: { textContent: t } }: any): void => {
-    if (!history && t === '=') {
+  const operationHandler: any = ({ target: { textContent: t } }: any): void => {
+    if (!calculator.history && t === '=') {
       return;
-    } else if (output && history && t === '=' && !output.endsWith('.')) {
-      setOutput(String(eval(history + output)));
-      setHistory('');
-    } else if (output && !output.endsWith('.')) {
-      setHistory(history + ' ' + output + ' ' + t);
-      setOutput('');
+    } else if (calculator.output && calculator.history && t === '=' && !calculator.output.endsWith('.')) {
+      setCalculator({ output: String(eval(calculator.history + calculator.output)), history: '' });
+    } else if (calculator.output && !calculator.output.endsWith('.')) {
+      setCalculator({ output: '', history: (calculator.history + ' ' + calculator.output + ' ' + t) });
     }
   }
 
-  const clearAllHandler = (): void => {
-    setOutput('');
-    setHistory('');
-  }
+  const clearAllHandler: any = (): void => setCalculator(defaultContext);
 
-  const addDecimalHandler = (): void => {
-    if (output && !output.includes('.')) {
-      setOutput(output + '.');
+  const addDecimalHandler: any = (): void => {
+    if (calculator.output && !calculator.output.includes('.')) {
+      // setOutput(calculator.output + '.');
+      setCalculator({ ...calculator, output: calculator.output + '.' });
     }
   }
 
-  const clearOutputHandler = (): void => setOutput('');
+  const clearOutputHandler: any = (): void => setCalculator({ ...calculator, output: '' });
 
-  const removeLastHandler = (): void => setOutput(output.slice(0, -1));
+  const removeLastHandler: any = (): void => setCalculator({ ...calculator, output: calculator.output.slice(0, -1) });
 
-  const reverseHandler = (): void => output.endsWith('.') ? false : setOutput(String(-output));
+  const reverseHandler: any = (): void =>
+    calculator.output.endsWith('.') ? false : setCalculator({ ...calculator, output: String(-calculator.output) });
 
   return (
     <div className="calculator__buttons">
@@ -69,9 +63,9 @@ export const Buttons: React.FC<IButtonsProps> = ({
         <div>
           {
             BUTTON_NUMBERS?.map((button: string, i: number) =>
-              <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
-                { button ?? '' }
-              </Button>
+            <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
+              { button ?? '' }
+            </Button>
             )
           }
 
