@@ -22,6 +22,7 @@ export const Calculator: React.FC = () => {
       <Result
         history={history}
         output={output}
+        setOutput={setOutput}
       />
 
       <Buttons

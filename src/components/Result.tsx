@@ -1,18 +1,24 @@
 import React from 'react';
 
+import { IResultProps } from '../interfaces';
+
 import { Input } from 'antd';
 import '../scss/components/_result.scss';
 
-interface IProps {
-  history: string,
-  output: string,
-};
+export const Result: React.FC<IResultProps> = ({
+  history,
+  output,
+  setOutput,
+ }) => {
+  const changeValuHandler: any = ({ target: { value: v } }: any): void => {
+    if (v.match(/\D/g)) return;
+    setOutput(v);
+  }
 
-export const Result: React.FC<IProps> = ({ history, output }) => {
   return (
     <div className="calculator__result">
       <Input value={history} disabled className="history" />
-      <Input value={output} disabled />
+      <Input value={output} onChange={changeValuHandler} />
     </div>
   );
 }

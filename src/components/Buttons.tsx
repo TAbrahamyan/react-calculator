@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IButtonsProps } from '../interfaces';
+
 import { Button } from 'antd';
 import '../scss/components/_buttons.scss';
 
@@ -11,14 +13,7 @@ const BUTTON_NUMBERS: string[] = [
 ];
 const BUTTON_OPERATIONS: string[] = [ '/', '*', '-', '+', '=' ];
 
-interface IProps {
-  output: string,
-  setOutput: Function,
-  history: string,
-  setHistory: Function,
-}
-
-export const Buttons: React.FC<IProps> = ({
+export const Buttons: React.FC<IButtonsProps> = ({
   output,
   setOutput,
   history,
