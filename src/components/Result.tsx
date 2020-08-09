@@ -3,7 +3,6 @@ import React from 'react';
 import { Context } from '../Context';
 
 import { Input } from 'antd';
-import '../scss/components/_result.scss';
 
 export const Result: React.FC = () => {
   const { calculator, setCalculator } = React.useContext(Context);

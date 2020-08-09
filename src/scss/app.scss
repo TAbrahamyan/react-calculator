@@ -1,4 +1,10 @@
 @import './mixins';
+@import 'components/all';
+@import 'fonts';
+
+* {
+  font-family: 'Heebo' !important;
+}
 
 body {
   margin: 0;

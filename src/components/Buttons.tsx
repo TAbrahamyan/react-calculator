@@ -3,7 +3,6 @@ import React from 'react';
 import { Context, defaultContext } from '../Context';
 
 import { Button } from 'antd';
-import '../scss/components/_buttons.scss';
 
 const BUTTON_NUMBERS: string[] = [
   '7', '8', '9',
@@ -63,9 +62,9 @@ export const Buttons: React.FC = () => {
         <div>
           {
             BUTTON_NUMBERS?.map((button: string, i: number) =>
-            <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
-              { button ?? '' }
-            </Button>
+              <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
+                { button ?? '' }
+              </Button>
             )
           }
 

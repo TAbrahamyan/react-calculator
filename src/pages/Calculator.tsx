@@ -2,13 +2,12 @@ import React from 'react';
 
 import { Result } from '../components/Result';
 import { Buttons } from '../components/Buttons';
-import { Context, defaultContext , DefaultContextType } from '../Context';
+import { Context, defaultContext , IDefaultContext } from '../Context';
 
 import { Typography } from 'antd';
-import '../scss/components/_calculator.scss';
 
 export const Calculator: React.FC = () => {
-  const [ calculator, setCalculator ] = React.useState<DefaultContextType>(defaultContext);
+  const [ calculator, setCalculator ] = React.useState<IDefaultContext>(defaultContext);
 
   return (
     <Context.Provider value={{ calculator, setCalculator }}>

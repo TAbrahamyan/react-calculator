@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import { Calculator } from './pages/Calculator';
 
 import 'antd/dist/antd.css';
-import './scss/_index.scss';
+import './scss/app.scss';
 
 ReactDOM.render(
   <Calculator />,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
