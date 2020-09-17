@@ -3,10 +3,9 @@ import React from 'react';
 import { Result } from '../components/Result';
 import { Buttons } from '../components/Buttons';
 import { Context, defaultContext , IDefaultContext } from '../Context';
-
 import { Typography } from 'antd';
 
-export const Calculator: React.FC = () => {
+export const Calculator: React.FC = (): React.ReactElement => {
   const [ calculator, setCalculator ] = React.useState<IDefaultContext>(defaultContext);
 
   return (

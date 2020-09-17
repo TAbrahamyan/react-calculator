@@ -2,16 +2,11 @@
 @import 'components/all';
 @import 'fonts';
 
-* {
-  font-family: 'Heebo' !important;
-}
+* { font-family: 'Heebo' !important }
+.ant-typography { margin: 0 !important }
 
 body {
   margin: 0;
   background: #393C88 !important;
   @include flex-content;
-}
-
-.ant-typography {
-  margin: 0 !important;
 }

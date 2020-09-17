@@ -1,14 +1,16 @@
 import React from 'react';
 
 import { Context } from '../Context';
-
 import { Input } from 'antd';
 
-export const Result: React.FC = () => {
+export const Result: React.FC = (): React.ReactElement => {
   const { calculator, setCalculator } = React.useContext(Context);
 
   const changeValuHandler: any = ({ target: { value: v } }: any): void => {
-    if (v.match(/\D/g)) return;
+    if (v.match(/\D/g)) {
+      return;
+    }
+
     setCalculator({ ...calculator, output: v });
   }
 

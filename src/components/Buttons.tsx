@@ -1,18 +1,17 @@
 import React from 'react';
 
 import { Context, defaultContext } from '../Context';
-
 import { Button } from 'antd';
 
+const BUTTON_OPERATIONS: string[] = [ '/', '*', '-', '+', '=' ];
 const BUTTON_NUMBERS: string[] = [
   '7', '8', '9',
   '4', '5', '6',
   '1', '2', '3',
   '0',
 ];
-const BUTTON_OPERATIONS: string[] = [ '/', '*', '-', '+', '=' ];
 
-export const Buttons: React.FC = () => {
+export const Buttons: React.FC = (): React.ReactElement => {
   const { calculator, setCalculator } = React.useContext(Context);
 
   const addNumberHandler: any = ({ target: { textContent: t } }: any): void => {
@@ -38,7 +37,6 @@ export const Buttons: React.FC = () => {
 
   const addDecimalHandler: any = (): void => {
     if (calculator.output && !calculator.output.includes('.')) {
-      // setOutput(calculator.output + '.');
       setCalculator({ ...calculator, output: calculator.output + '.' });
     }
   }
@@ -60,13 +58,11 @@ export const Buttons: React.FC = () => {
         </div>
 
         <div>
-          {
-            BUTTON_NUMBERS?.map((button: string, i: number) =>
-              <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
-                { button ?? '' }
-              </Button>
-            )
-          }
+          {BUTTON_NUMBERS?.map((button: string, i: number) =>
+            <Button key={i} shape="circle" type="primary" onClick={addNumberHandler}>
+              { button ?? '' }
+            </Button>
+          )}
 
           <Button shape="circle" type="primary" onClick={addDecimalHandler}>.</Button>
           <Button shape="circle" type="primary" onClick={reverseHandler}>-/+</Button>
@@ -74,13 +70,11 @@ export const Buttons: React.FC = () => {
       </div>
 
       <div className="calculator__buttons__operators">
-        {
-          BUTTON_OPERATIONS?.map((button: string, i: number) =>
-            <Button key={i} shape="circle" type="primary" onClick={operationHandler}>
-              { button ?? '' }
-            </Button>
-          )
-        }
+        {BUTTON_OPERATIONS?.map((button: string, i: number) =>
+          <Button key={i} shape="circle" type="primary" onClick={operationHandler}>
+            { button ?? '' }
+          </Button>
+        )}
       </div>
     </div>
   );
