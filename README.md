@@ -1,4 +1,4 @@
-## An ordinary little calculator of basic math calculations such as plus(+), minus(-), multiplication(*), division(/).
+## An ordinary little calculator of basic math calculations such as plus(+), minus(-), multiplication(*) and division(/).
 
 * This calculator was developed on the JavaScript programming language and React framework.
 
